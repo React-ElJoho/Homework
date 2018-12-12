@@ -1,70 +1,41 @@
 class Azul{
 	constructor(){
-		//
 	}
 }
 class Task {
 	constructor(root){
-		this.element="hola2"
-		this.amarillo= new Azul()
-		this.contenedorTasks =document.createElement("div")
-		this.contenedorTasks.classList.add("tasks")
-		this.name =document.createElement("h4")
-		this.work = new Input("text","work","Hola")
-		this.deadline =new Input("text","deadline", "Hola2")
-		this.percent = new Input("text", "percent","Hola3")
-		this.like =new Input("text","like","Hola4")
-		this.boton = new Input("boton","button","Hola5","Hola5")
-		this.contenedorTasks.appendChild(this.work.getElement())
-		this.contenedorTasks.appendChild(this.percent.getElement())
-		this.contenedorTasks.appendChild(this.like.getElement())
-		this.contenedorTasks.appendChild(this.deadline.getElement())
-		this.contenedorTasks.appendChild(this.boton.getElement())
-		document.getElementById(root).appendChild(this.contenedorTasks)
-		console.log(this)
+		this.contenedorTasks = document.createElement("div");
+		this.contenedorTasks.classList.add("tasks");
+		this.name = document.createElement("h4");
+		this.work = new Input("text","work","Hola");
+		this.deadline =new Input("text","deadline", "Hola2");
+		this.percent = new Input("text", "percent","Hola3");
+		this.like =new Input("text","like","Hola4");
+		this.boton = new Input("boton","button","Hola5","Hola5");
+		this.contenedorTasks.appendChild(this.work.getElement());
+		this.contenedorTasks.appendChild(this.percent.getElement());
+		this.contenedorTasks.appendChild(this.like.getElement());
+		this.contenedorTasks.appendChild(this.deadline.getElement());
+		this.contenedorTasks.appendChild(this.boton.getElement());
+		document.getElementById(root).appendChild(this.contenedorTasks);
 		this.onClick= this.onClick.bind(this);// Aca estamos haciendo que el elemento onClick tenga el contexto de esta clase. 
-		this.boton.getElement().addEventListener ("click",this.onClick) // Aca estamos llamando al elemento HTML del Boton y ademas
+		this.boton.getElement().addEventListener("click",this.onClick); // Aca estamos llamando al elemento HTML del Boton y ademas
 		// estamos escuchando cuando suceda el evento click  de ese elemento para ejecutar el metodo onClick. 
-		
-		 this.descriptionTime = `Tiempo que toma hacerlo menos fecha de entrega y da el valor de dias correspondientes`
-		 this.descriptionPercent =` De acuerdo al porcentaje que tiene la tarea asiganara
-		 un valor de puntaje priiorizando el de mayor porcentaje al de menor porcentaje`
-		 this.descriptionLikeability =`Se utiliza como ultimop recurso el gusto que tiene la persona por dicha tarea si sus 
-		 valores han sido iguales en las otras categorias`
-		  this.percentO= this.percentO.bind(this);
-		 this.likeability= this.likeability.bind(this);
-		 this.time= this.time.bind(this);
 
 	}
-
-	time() {
-			//return this.work.getElement().value - this.deadline.getElement().value 
-			console.log(this.descriptionTime)
+	time(){
+		//return this.work.getElement().value - this.deadline.getElement().value
 	}
-
-	percentO() { 
-			console.log(this.descriptionPercent)
+	percentO(){ 
 	}
-
-	likeability() {
-			console.log(this.descriptionLikeability)
+	likeability(){
 	}
-	
 	onClick(){
-		function ol(){
-			this.time();
-			this.percentO();
-			this.likeability();
-
-		}
-
-		ol=ol.bind(this);		
-		ol()
+		//if( !(/^\d{9}$/.test(this.work.getAtributes('value'))))
+		if(isNaN(parseInt(this.work.getAtributes('value'))))
+			console.log('aaaa');
+		else console.log(parseInt(this.work.getAtributes('value')))
 	}
-
-
-
-
 }
 class Input {
 	constructor(id,type,placeholder,value=""){
@@ -73,25 +44,37 @@ class Input {
 		this.element.type = type;
 		this.element.id = id; 
 		this.element.value = value; 
-		
-
 	}
 	getElement(){
 		return this.element;
+	}
+	getAtributes(value){
+		//La función entrega el el valor del atributo recbido en el
+		//parametro value
+		switch (value) {
+			case 'class':
+				return this.element.classList;
+				break;
+			case 'id':
+				return this.element.id;
+				break;
+			case 'placeholder':
+				return this.element.placeholder;
+				break;
+			case 'value':
+				return this.element.value;
+				break;
+			default:
+				console.log('No se encuentra el atributo pasado');
+				break;
+		}
 	}
 }
 
 
 
 window.onload = function (){
-	window.innerText ="Hola mundo"
-	var jave1 = document.createElement ("div")
-	jave1.innerText ="hola mundo"
-	document.getElementById("root").appendChild(jave1)
-	const contenedor =new Task ("root")
-	var hola= new Task("root")
-
-
+	const contenedor =new Task("root");
 };
 
 
