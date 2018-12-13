@@ -38,16 +38,13 @@ class Task {
 	}
 
 	maxHeap(newItem,arrayToSort){
-		if(arrayToSort.length == 0 || newItem < arrayToSort[arrayToSort.length-1]){
-			arrayToSort.push(newItem)
+		if(arrayToSort.length == 0 || newItem <= arrayToSort[arrayToSort.length-1]){
+			arrayToSort.push(newItem);
 			return arrayToSort;
 		}	
-		for(let i=0; i < arrayToSort.length ; i++){
-			if(newItem >= arrayToSort[i]){
-				arrayToSort = arrayToSort.slice(0,i).concat([newItem].concat(arrayToSort.slice(i)));
-				return arrayToSort;
-			}
-		};
+		for(let i=0; i < arrayToSort.length ; i++)
+			if(newItem >= arrayToSort[i])
+				return arrayToSort.slice(0,i).concat([newItem],arrayToSort.slice(i));
 	}
 
 	likeability() {
