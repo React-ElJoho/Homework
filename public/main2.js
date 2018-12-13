@@ -32,17 +32,23 @@ class Task {
 	}
 
 	percentO() { 
-		console.log(this.percent.getAttribute("value"));// Para llamar al elemento es solo necesario poner el this.percent
-		if (this.percentArray) {
-			console.log("existe")
+		if (!this.percentArray)	this.percentArray = [];
+		this.percentArray = this.maxHeap(parseInt(this.percent.getAttribute("value")),this.percentArray);
+		console.log(this.percentArray);
+	}
 
-		} else {
-			this.percentArray = [];
-			console.log("no exisitia")
-
-		} this.percentArray.push(this.percent.getAttribute("value"))
-		console.log(this.percentArray);// Lo que hicimos aca fue añadir un condicional en el cual recibimos cada vez que 
-		//oprimamos el boton y el valor que recibamos de ahi lo guardamos en un arreglo para ser posteriormente organizado. 
+	maxHeap(newItem,arrayToSort){
+		if(arrayToSort.length == 0 || newItem < arrayToSort[arrayToSort.length-1]){
+			arrayToSort.push(newItem)
+			return arrayToSort;
+		}else{
+			for(let i=0; i < arrayToSort.length ; i++){
+				if(newItem >= arrayToSort[i]){
+					arrayToSort = arrayToSort.slice(0,i).concat([newItem].concat(arrayToSort.slice(i)));
+					return arrayToSort;
+				}
+			}
+		};
 	}
 
 	likeability() {
