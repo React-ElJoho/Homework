@@ -1,42 +1,39 @@
-class Task {
+class Engine{
 	constructor(root){
-		this.contenedorTasks =document.createElement("div")
-		this.contenedorTasks.classList.add("tasks")
-		this.name =document.createElement("h4")
-		this.work = new Input("text","work","Hola")
-		this.deadline =new Input("text","deadline", "Hola2")
-		this.percent = new Input("text", "percent","Hola3")
-		this.like =new Input("text","like","Hola4")
-		this.boton = new Input("button","boton","Hola5","Hola5")
-		this.contenedorTasks.appendChild(this.work.getElement())
-		this.contenedorTasks.appendChild(this.percent.getElement())
-		this.contenedorTasks.appendChild(this.like.getElement())
-		this.contenedorTasks.appendChild(this.deadline.getElement())
-		this.contenedorTasks.appendChild(this.boton.getElement())
-		document.getElementById(root).appendChild(this.contenedorTasks)
+		this.root = root;
+	}
+	addTask(task){
 		
-		this.onClick= this.onClick.bind(this);// Aca estamos haciendo que el elemento onClick tenga el contexto de esta clase. 
-		this.boton.getElement().addEventListener ("click",this.onClick) // Aca estamos llamando al elemento HTML del Boton y ademas
+	}
+}
+class Task{
+	constructor(root){
+		this.contenedorTasks = document.createElement("div");
+		this.contenedorTasks.classList.add("tasks");
+		this.name = document.createElement("h4");
+		this.work = new Input("text","work","Hola");
+		this.deadline = new Input("text","deadline", "Hola2");
+		this.percent = new Input("text", "percent","Hola3");
+		this.like = new Input("text","like","Hola4");
+		this.boton = new Input("button","boton","Hola5","Hola5");
+		this.contenedorTasks.appendChild(this.work.getElement());
+		this.contenedorTasks.appendChild(this.percent.getElement());
+		this.contenedorTasks.appendChild(this.like.getElement());
+		this.contenedorTasks.appendChild(this.deadline.getElement());
+		this.contenedorTasks.appendChild(this.boton.getElement());
+		document.getElementById(root).appendChild(this.contenedorTasks);
+		
+		this.onClick = this.onClick.bind(this);// Aca estamos haciendo que el elemento onClick tenga el contexto de esta clase. 
+		this.boton.getElement().addEventListener("click",this.onClick); // Aca estamos llamando al elemento HTML del Boton y ademas
 		// estamos escuchando cuando suceda el evento click  de ese elemento para ejecutar el metodo onClick. 
-		
-		  this.percentO= this.percentO.bind(this);
-		 this.likeability= this.likeability.bind(this);
-		 this.time= this.time.bind(this);
-
+		this.createHomework = this.createHomework.bind(this);
+		this.addEngine = this.addEngine.bind(this);
 	}
-
-	time() {
-
-			//return this.work.getElement().value - this.deadline.getElement().value 
-			
-	}
-
-	percentO() { 
+	percentO(){ 
 		if (!this.percentArray)	this.percentArray = [];
 		this.percentArray = this.maxHeap(parseInt(this.percent.getAttribute("value")),this.percentArray);
 		console.log(this.percentArray);
 	}
-
 	maxHeap(newItem,arrayToSort){
 		if(arrayToSort.length == 0 || newItem <= arrayToSort[arrayToSort.length-1]){
 			arrayToSort.push(newItem);
@@ -46,19 +43,22 @@ class Task {
 			if(newItem >= arrayToSort[i])
 				return arrayToSort.slice(0,i).concat([newItem],arrayToSort.slice(i));
 	}
-
-	likeability() {
-			
+	addEngine(engine){
+		this.engine = engine;
 	}
-	
+	createHomework(){
+		let homework = {
+			work : this.work.getAttribute('value');
+			deadline : this.deadline.getAttribute('value');
+			percent : this.percent.getAttribute('value');
+			like : this.like.getAttribute('value');
+		};
+		return homework;
+	}
 	onClick(){
-		this.percentO();//Aca llamamos la funcion dentro del Onclick.
-		
+		if(this.engine)
+			this.engine.addTask(createHomework());
 	}
-
-
-
-
 }
 class Input {
 	constructor(type,id,placeholder,value=""){
@@ -90,14 +90,9 @@ class Input {
 
 
 window.onload = function (){
-	window.innerText ="Hola mundo"
-	var jave1 = document.createElement ("div")
-	jave1.innerText ="hola mundo"
-	document.getElementById("root").appendChild(jave1)
-	const contenedor =new Task ("root")
-	var hola= new Task("root")
-
-
+	const engine = new Engine('root');
+	const contenedor =new Task("root");
+	contenedor.addEngine(engine);
 };
 
 
